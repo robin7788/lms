@@ -8,3 +8,7 @@ class Author(models.Model):
     img     = models.ImageField(upload_to='images/author', blank=True)
     desc    = models.TextField(blank=True)
     status  = models.BooleanField(default=True)
+
+    # change app name object to actual data name
+    def __str__(self):
+        return self.name
