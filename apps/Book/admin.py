@@ -31,7 +31,7 @@ def cached_admin_thumb(instance):
 
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
-    list_display = ("name", "image_display", "status")
+    list_display = ("name", "image_display", "status", "created_at")
     image_display = AdminThumbnail(image_field=cached_admin_thumb)
     image_display.short_description = 'Image'
 
@@ -39,7 +39,7 @@ class AuthorAdmin(admin.ModelAdmin):
 
 @admin.register(Publication)
 class PublicationAdmin(admin.ModelAdmin):
-    list_display = ("name", 'image_display', "phone", "status")
+    list_display = ("name", 'image_display', "phone", "status", "created_at")
     image_display = AdminThumbnail(image_field=cached_admin_thumb)
     image_display.short_description = 'Image'
 
@@ -48,16 +48,16 @@ class PublicationAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ("name", "status")
+    list_display = ("name", "status", "created_at")
 
 @admin.register(Type)
 class TypeAdmin(admin.ModelAdmin):
-    list_display = ("name", "status")
+    list_display = ("name", "status", "created_at")
 
 @admin.register(Genre)
 class GenreAdmin(admin.ModelAdmin):
-    list_display = ("name", "status")
+    list_display = ("name", "status", "created_at")
 
 @admin.register(Shelf)
 class ShelfAdmin(admin.ModelAdmin):
-    list_display = ("name", 'storey', "status")
+    list_display = ("name", 'storey', "status", "created_at")

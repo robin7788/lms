@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -7,6 +8,8 @@ class Author(models.Model):
     img     = models.ImageField(upload_to='images/author', blank=True)
     desc    = models.TextField(blank=True)
     status  = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     # change app name object to actual data name
     def __str__(self):
@@ -23,6 +26,8 @@ class Category(models.Model):
     name    = models.CharField(max_length=100)
     desc    = models.TextField(blank=True)
     status  = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     # change app name object to actual data name
     def __str__(self):
@@ -33,6 +38,8 @@ class Type(models.Model):
     name    = models.CharField(max_length=100)
     desc    = models.TextField(blank=True)
     status  = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     # change app name object to actual data name
     def __str__(self):
@@ -43,6 +50,8 @@ class Genre(models.Model):
     name    = models.CharField(max_length=100)
     desc    = models.TextField(blank=True)
     status  = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     # change app name object to actual data name
     def __str__(self):
@@ -56,6 +65,8 @@ class Publication(models.Model):
     phone   = models.CharField(max_length=25, blank=True)
     desc    = models.TextField(blank=True)
     status  = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     # change app name object to actual data name
     def __str__(self):
@@ -67,6 +78,8 @@ class Shelf(models.Model):
     storey  = models.CharField(max_length=100, blank=True)
     desc    = models.TextField(blank=True)
     status  = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     # change app name object to actual data name
     def __str__(self):
