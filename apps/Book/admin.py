@@ -6,7 +6,7 @@ from imagekit.cachefiles import ImageCacheFile
 
 # Register your models here.
 
-from .models import Author, Publication, Category, Type, Genre, Shelf
+from .models import Book, Author, Publication, Category, Type, Genre, Shelf
 
 # admin.site.register(Author)
 # admin.site.register(Publication)
@@ -19,6 +19,7 @@ class AdminThumbnailSpec(ImageSpec):
     processors = [ResizeToFill(100, 50)]
     format = 'JPEG'
     options = {'quality': 60 }
+
 def cached_admin_thumb(instance):
     if instance.img:
         # `image` is the name of the image field on the model
@@ -28,6 +29,11 @@ def cached_admin_thumb(instance):
         return cached
     return "";
 
+
+@admin.register(Book)
+class BookAdmin(admin.ModelAdmin):
+    list_display = ("name", "shelf", "author", "category", "type", "status", "created_at")
+    search_fields = ("name", "shelf__name", "author__name", "category__name", "type__name")
 
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
