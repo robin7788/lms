@@ -31,12 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'apps.Publication',
-    'apps.author',
-    'apps.Genre',
-    'apps.BookCategory',
-    'apps.BookType',
-    'apps.Shelf',
+    'apps.Book',
+    'imagekit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -138,5 +134,5 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = BASE_DIR / "assets"
 
-MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_URL = "/images/"
+MEDIA_ROOT = BASE_DIR / "images"

@@ -1,6 +1,7 @@
 .idea/
 assets/*
 images/*
+media/*
 
 __pycache__/
 *.py[cod]
