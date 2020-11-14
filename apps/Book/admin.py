@@ -33,7 +33,8 @@ def cached_admin_thumb(instance):
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
     list_display = ("name", "shelf", "author", "category", "type", "status", "created_at")
-    search_fields = ("name", "shelf__name", "author__name", "category__name", "type__name")
+    search_fields = ("name", "shelf__name", "author__name", "category__name")
+    list_filter = ("shelf__name", "author__name", "category__name")
 
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
