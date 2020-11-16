@@ -1,16 +1,21 @@
 {% load i18n static admin_black %}
+{% load admin_black %}
 
 {% if user.is_active and user.is_staff or has_permission %}
+{% with "/"|add:request.resolver_match.route as currentUrl %}
+
     <div class="sidebar">
         <div class="sidebar-wrapper">
             <div class="logo">
                 <a href="{% url 'admin:index' %}" class="simple-text logo-normal">{% trans 'Administrator' %}</a>
             </div>
             <ul class="nav">
-                <li>
+                <li class="{% if '/admin/' == currentUrl|lower %} selected{% endif %}">
                     <a href="{% url 'admin:index' %}">
                         <i class="tim-icons icon-chart-pie-36"></i>
-                        <p>{% trans 'HOME' %}</p>
+                        <div class="row">
+                            <div class="col-12 padding-0"><p>{% trans 'HOME' %}</p></div>
+                        </div>
                     </a>
                 </li>
 
@@ -26,22 +31,26 @@
                                                                       data-order="{{ forloop.counter }}"
                                         {% if app.url_blank %} target="_blank"{% endif %}>
                                     <i class="{{ app.icon }}"></i>
-                                    <p>
-                                        {{ app.label }}
-                                        {% if app.models %}
-                                            <span class="tim-icons icon-minimal-down m-2"></span>
-                                        {% endif %}
-                                    </p>
+
+                                    <div class="row">
+                                        <div class="col-10 padding-0">
+                                            <p>{{ app.label }}</p>
+                                        </div>
+                                        <div class="col-2 padding-0">
+                                            {% if app.models %}
+                                                <span class="tim-icons icon-minimal-down m-2"></span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
                                 </a>
 
                                 {% if app.models %}
                                     <ul class="navbar-dropdown">
                                         {% for model in app.models %}
                                             {% if model.url %}
-                                                <li class="{{ direction.panel }}">
+                                                <li class="{{ direction.panel }}{% if currentUrl|startswith:model.url %} selected{% endif %}{% if model.url|lower == currentUrl|lower %} selected{% endif %}">
                                                     <a href="{{ model.url }}">
-                                                        <span>{{ model.label }}</span>
-                                                        <span class="tim-icons icon-minimal-{{ direction.notify }}"></span>
+                                                                <span>{{ model.label }}</span>
                                                     </a>
                                                 </li>
                                             {% else %}
@@ -57,4 +66,5 @@
             </ul>
         </div>
     </div>
+{% endwith %}
 {% endif %}

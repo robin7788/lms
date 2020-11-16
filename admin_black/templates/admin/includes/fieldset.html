@@ -10,7 +10,7 @@
         <div class="card-body">
             {% for line in fieldset %}
                 <div class="row {{ direction.panel }}">
-                    <div class="col-md-7">
+                    <div class="col-md-12">
                         <div class="form-group{% if line.fields|length_is:'1' and line.errors %} errors{% endif %}{% if not line.has_visible_field %} hidden{% endif %}{% for field in line %}{% if field.field.name %} field-{{ field.field.name }}{% endif %}{% endfor %}">
                             {% if line.fields|length_is:'1' %}{{ line.errors }}{% endif %}
                             {% for field in line %}

@@ -18,6 +18,12 @@ def checkbox(value):
     res = re.sub(r"</?(?i:td)(.|\n)*?>", "", value)
     return res
 
+# register tag for comparing and making menu active
+@register.filter
+def startswith(text, starts):
+    if isinstance(text, str):
+        return text.startswith(starts)
+    return False
 
 @assignment_tag(takes_context=True)
 def admin_black_get_menu(context):

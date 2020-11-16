@@ -40,12 +40,24 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header {{ direction.reverse_panel }}">
-                        <ul class="object-tools">
-                            {% block object-tools-items %}
-                                {% change_list_object_tools %}
-                            {% endblock %}
-                        </ul>
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-8 text-center">
+
+                                {% block search %}{% search_form cl %}{% endblock %}
+                                {% block date_hierarchy %}
+                                    {% if cl.date_hierarchy %}{% date_hierarchy cl %}{% endif %}
+                                {% endblock %}
+                            </div>
+                            <div class="col-md-4 {{ direction.reverse_panel }}">
+
+                                <ul class="object-tools">
+                                    {% block object-tools-items %}
+                                        {% change_list_object_tools %}
+                                    {% endblock %}
+                                </ul>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="card-body">
@@ -53,10 +65,6 @@
                             <div class="{% if cl.has_filters %}col-md-10{% else %}col-md-12{% endif %}">
                                 <div class="card">
                                     <div class="card-body">
-                                        {% block search %}{% search_form cl %}{% endblock %}
-                                        {% block date_hierarchy %}
-                                            {% if cl.date_hierarchy %}{% date_hierarchy cl %}{% endif %}
-                                        {% endblock %}
 
                                         <form id="changelist-form" method="post"
                                                 {% if cl.formset and cl.formset.is_multipart %}

@@ -5,6 +5,9 @@ from imagekit.processors import ResizeToFill
 from imagekit.cachefiles import ImageCacheFile
 
 # Register your models here.
+from admin_black.filters import (
+    DropdownFilter, ChoiceDropdownFilter, RelatedDropdownFilter
+)
 
 from .models import Book, Author, Publication, Category, Type, Genre, Shelf
 
@@ -34,11 +37,16 @@ def cached_admin_thumb(instance):
 class BookAdmin(admin.ModelAdmin):
     list_display = ("name", "shelf", "author", "category", "type", "status", "created_at")
     search_fields = ("name", "shelf__name", "author__name", "category__name")
-    list_filter = ("shelf__name", "author__name", "category__name")
+    list_filter = (
+            ("shelf", RelatedDropdownFilter),
+            ("category", RelatedDropdownFilter),
+            ("author", RelatedDropdownFilter),
+    )
 
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
     list_display = ("name", "image_display", "status", "created_at")
+    search_fields = ("name", )
     image_display = AdminThumbnail(image_field=cached_admin_thumb)
     image_display.short_description = 'Image'
 
@@ -47,6 +55,7 @@ class AuthorAdmin(admin.ModelAdmin):
 @admin.register(Publication)
 class PublicationAdmin(admin.ModelAdmin):
     list_display = ("name", 'image_display', "phone", "status", "created_at")
+    search_fields = ("name", )
     image_display = AdminThumbnail(image_field=cached_admin_thumb)
     image_display.short_description = 'Image'
 
@@ -56,15 +65,19 @@ class PublicationAdmin(admin.ModelAdmin):
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ("name", "status", "created_at")
+    search_fields = ("name", )
 
 @admin.register(Type)
 class TypeAdmin(admin.ModelAdmin):
     list_display = ("name", "status", "created_at")
+    search_fields = ("name", )
 
 @admin.register(Genre)
 class GenreAdmin(admin.ModelAdmin):
     list_display = ("name", "status", "created_at")
+    search_fields = ("name", )
 
 @admin.register(Shelf)
 class ShelfAdmin(admin.ModelAdmin):
     list_display = ("name", 'storey', "status", "created_at")
+    search_fields = ("name", )

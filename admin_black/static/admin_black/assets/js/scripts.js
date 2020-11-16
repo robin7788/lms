@@ -195,29 +195,44 @@ function AjaxUpdateAdminBlackSetting(form_data) {
 }
 
 /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
-var dropdown = document.getElementsByClassName("navbar-btn");
-var i;
+//var dropdown = document.getElementsByClassName("navbar-btn");
+//var i;
+//
+//for (i = 0; i < dropdown.length; i++) {
+//    dropdown[i].addEventListener("click", function () {
+//        this.classList.toggle("active");
+//        var dropdownContent = this.nextElementSibling;
+//        if (dropdownContent.style.display === "block") {
+//            dropdownContent.style.display = "none";
+//        } else {
+//            dropdownContent.style.display = "block";
+//        }
+//    });
+//}
 
-for (i = 0; i < dropdown.length; i++) {
-    dropdown[i].addEventListener("click", function () {
-        this.classList.toggle("active");
-        var dropdownContent = this.nextElementSibling;
-        if (dropdownContent.style.display === "block") {
-            dropdownContent.style.display = "none";
-        } else {
-            dropdownContent.style.display = "block";
-        }
-    });
-}
-
-
+//Added by robin
 $(document).ready(function () {
-    $('.sidebar').on('click', 'a.navbar-btn', function() {
-        $icon = $(this).find('.m-2');
-        if($icon.hasClass('m-2-90')) {
-            $icon.removeClass('m-2-90');
-        } else {
-            $icon.addClass('m-2-90');
-        }
+    $sidebar = $('.sidebar');
+    $sidebar.on('click', 'a.navbar-btn', function() {
+        $this = $(this);
+        makeURLActive($this);
     });
+    $selectedLi = $sidebar.find('.selected');
+    if($selectedLi.length > 0) {
+        makeURLActive($selectedLi.closest('ul.navbar-dropdown').parent().find('a.navbar-btn'));
+    }
+
+    function makeURLActive($this)
+    {
+        $icon = $this.find('.m-2');
+        if($this.hasClass('active')) {
+            $this.removeClass('active');
+            $icon.addClass('m-2-90');
+            $this.parent().find('ul.navbar-dropdown').slideUp();
+        } else {
+            $this.addClass('active');
+            $icon.removeClass('m-2-90');
+            $this.parent().find('ul.navbar-dropdown').slideDown();
+        }
+    }
 });

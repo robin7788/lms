@@ -12991,6 +12991,9 @@ fieldset[disabled] .navbar .navbar-nav>a.btn.active {
 .navbar .navbar-nav>a.btn.btn-icon.btn-simple {
   padding: 0;
 }
+.padding-0 {
+    padding: 0;
+}
 
 .btn.btn-icon.btn-sm,
 .btn-group-sm>.btn.btn-icon,
@@ -15921,6 +15924,10 @@ img {
   padding: 0 10px;
 }
 
+.nav li.selected {
+    background: #053b9a99;
+}
+
 .navbar-nav li a {
   color: #ffffff;
 }
@@ -17494,7 +17501,7 @@ table.tablesorter thead tr .headerSortDown {
 
 .sidebar .nav li>a,
 .off-canvas-sidebar .nav li>a {
-  margin: 10px 15px 0;
+  /*margin: 10px 15px 0;*/
   border-radius: 30px;
   color: #ffffff;
   display: block;
@@ -17502,15 +17509,17 @@ table.tablesorter thead tr .headerSortDown {
   position: relative;
   text-transform: uppercase;
   cursor: pointer;
-  font-size: 0.62475rem;
+  font-size: 0.75rem;
   padding: 0px;
   line-height: 1.625rem;
 }
 
+/*
 .sidebar .nav li:first-child>a,
 .off-canvas-sidebar .nav li:first-child>a {
   margin: 0 15px;
 }
+*/
 
 .sidebar .nav li:hover:not(.active)>a p,
 .sidebar .nav li:hover:not(.active)>a i,
@@ -17610,7 +17619,6 @@ table.tablesorter thead tr .headerSortDown {
   position: relative;
   display: block;
   height: auto;
-  white-space: nowrap;
 }
 
 .sidebar .nav i,
@@ -17785,6 +17793,36 @@ table.tablesorter thead tr .headerSortDown {
   top: 8px;
   right: 18px;
 }
+
+/* added by robin */
+.sidebar .navbar-dropdown li>a:before {
+    content: "-";
+}
+.sidebar .navbar-dropdown li {
+    border-left: 1px solid white;
+    border-radius: 0px;
+}
+.sidebar .navbar-dropdown li:last-child {
+    border-image: linear-gradient(to bottom, white 50%,white 50%,white 50%,transparent 50%);
+    border-image-slice: 1;
+}
+.tim-icons.icon-minimal-down.m-2 {
+    position: absolute;
+    bottom: 25%;
+}
+.filter_panel ul li.selected a {
+    color: #edadff;
+}
+.filter_panel ul li{
+    list-style: none;
+}
+.filter_panel ul li:before {
+    content: "-";
+    margin-left: -15px;
+    margin-right: 5px;
+}
+/* End:added by robin */
+
 
 .visible-on-sidebar-regular {
   display: inline-block !important;
