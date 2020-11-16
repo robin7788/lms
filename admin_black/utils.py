@@ -36,7 +36,8 @@ except ImportError:
 
 
 default_apps_icon = {
-    'auth': 'tim-icons icon-single-02'
+    'auth': 'tim-icons icon-single-02',
+    'Book': 'tim-icons icon-single-copy-04',
 }
 
 

@@ -3,7 +3,7 @@ assets/*
 images/*
 media/*
 
-lms/__pycache__/*
+lms/__pycache__/
 
 __pycache__/
 *.py[cod]

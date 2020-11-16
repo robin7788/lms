@@ -209,3 +209,15 @@ for (i = 0; i < dropdown.length; i++) {
         }
     });
 }
+
+
+$(document).ready(function () {
+    $('.sidebar').on('click', 'a.navbar-btn', function() {
+        $icon = $(this).find('.m-2');
+        if($icon.hasClass('m-2-90')) {
+            $icon.removeClass('m-2-90');
+        } else {
+            $icon.addClass('m-2-90');
+        }
+    });
+});

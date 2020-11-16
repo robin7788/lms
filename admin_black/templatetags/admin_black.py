@@ -53,3 +53,22 @@ def get_admin_black_setting(context):
     }
 
     return res
+
+from apps.Book.models import Book
+from apps.Book.models import Category
+from django.contrib.auth import get_user_model
+
+
+@assignment_tag(takes_context=True)
+def get_admin_counted_data(context):
+    users = get_user_model()
+    books = Book.objects.count()
+    librarians = users.objects.filter(groups__name='librarian').count()
+    categories = Category.objects.count()
+    res = {
+        "books" : books,
+        "librarians" : librarians,
+        "categories" : categories,
+    }
+
+    return res

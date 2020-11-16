@@ -7,6 +7,9 @@ from django.views.decorators.csrf import csrf_exempt
 
 from admin_black.models import AdminBlackSetting
 
+admin.site.site_header = "LMS"
+admin.site.site_title = "LMS"
+admin.site.index_title = "Library Management System"
 
 class CustomUserAdmin(UserAdmin):
     def get_urls(self):

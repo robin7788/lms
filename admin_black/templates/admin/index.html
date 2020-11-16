@@ -6,6 +6,36 @@
 {% block content %}
     <div class="content">
         <div class="row">
+            <div class="col-4">
+                <div class="card card-chart">
+                    <div class="card-header">
+                        <h2 class="card-title">{% trans "Books" %}</h2>
+                    </div>
+                    <div class="card-body text-center">
+                        <h1>{{ admin_counted_data.books }}</h1>
+                    </div>
+                </div>
+            </div>
+             <div class="col-4">
+                <div class="card card-chart">
+                    <div class="card-header">
+                        <h2 class="card-title">{% trans "Librarian" %}</h2>
+                    </div>
+                    <div class="card-body text-center">
+                        <h1>{{ admin_counted_data.librarians }}</h1>
+                    </div>
+                </div>
+            </div>
+             <div class="col-4">
+                <div class="card card-chart">
+                    <div class="card-header">
+                        <h2 class="card-title">{% trans "Book Categories" %}</h2>
+                    </div>
+                    <div class="card-body text-center">
+                        <h1>{{ admin_counted_data.categories }}</h1>
+                    </div>
+                </div>
+            </div>
             <div class="col-12">
                 <div class="card card-chart">
                     <div class="card-header">

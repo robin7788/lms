@@ -27,7 +27,7 @@ def cached_admin_thumb(instance):
         # only generates the first time, subsequent calls use cache
         cached.generate()
         return cached
-    return "";
+    return ""
 
 
 @admin.register(Book)
