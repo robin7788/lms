@@ -32,6 +32,14 @@ def cached_admin_thumb(instance):
         return cached
     return ""
 
+# make status active
+def make_active(modeladmin, request, queryset):
+    queryset.update(status=1)
+
+# make status active
+def make_deactive(modeladmin, request, queryset):
+    queryset.update(status=0)
+
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
@@ -42,11 +50,18 @@ class BookAdmin(admin.ModelAdmin):
             ("category", RelatedDropdownFilter),
             ("author", RelatedDropdownFilter),
     )
+    actions = [make_active, make_deactive]
+    actions_on_top = False
+    actions_on_bottom = True
 
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
     list_display = ("name", "image_display", "status", "created_at")
     search_fields = ("name", )
+    actions = [make_active, make_deactive]
+    actions_on_top = False
+    actions_on_bottom = True
+
     image_display = AdminThumbnail(image_field=cached_admin_thumb)
     image_display.short_description = 'Image'
 
@@ -56,6 +71,10 @@ class AuthorAdmin(admin.ModelAdmin):
 class PublicationAdmin(admin.ModelAdmin):
     list_display = ("name", 'image_display', "phone", "status", "created_at")
     search_fields = ("name", )
+    actions = [make_active, make_deactive]
+    actions_on_top = False
+    actions_on_bottom = True
+
     image_display = AdminThumbnail(image_field=cached_admin_thumb)
     image_display.short_description = 'Image'
 
@@ -66,18 +85,30 @@ class PublicationAdmin(admin.ModelAdmin):
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ("name", "status", "created_at")
     search_fields = ("name", )
+    actions = [make_active, make_deactive]
+    actions_on_top = False
+    actions_on_bottom = True
 
 @admin.register(Type)
 class TypeAdmin(admin.ModelAdmin):
     list_display = ("name", "status", "created_at")
     search_fields = ("name", )
+    actions = [make_active, make_deactive]
+    actions_on_top = False
+    actions_on_bottom = True
 
 @admin.register(Genre)
 class GenreAdmin(admin.ModelAdmin):
     list_display = ("name", "status", "created_at")
     search_fields = ("name", )
+    actions = [make_active, make_deactive]
+    actions_on_top = False
+    actions_on_bottom = True
 
 @admin.register(Shelf)
 class ShelfAdmin(admin.ModelAdmin):
     list_display = ("name", 'storey', "status", "created_at")
     search_fields = ("name", )
+    actions = [make_active, make_deactive]
+    actions_on_top = False
+    actions_on_bottom = True

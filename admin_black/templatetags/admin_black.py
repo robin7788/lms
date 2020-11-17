@@ -53,9 +53,10 @@ def get_admin_black_setting(context):
     user = context.get('request').user
     admin_black_setting = user.admin_black_setting if hasattr(user, 'admin_black_setting') else None
     res = {
+        'admin_black_setting': admin_black_setting,
         'sidebar_background': admin_black_setting.sidebar_background if admin_black_setting else 'primary',
-        'dark_mode': admin_black_setting.dark_mode if admin_black_setting else True,
-        'input_bg_color': '#ffffff' if admin_black_setting and not admin_black_setting.dark_mode else '#27293c'
+        'dark_mode': admin_black_setting.dark_mode == True if admin_black_setting else False,
+        'input_bg_color': '#27293c' if admin_black_setting and admin_black_setting.dark_mode else '#ffffff'
     }
 
     return res
