@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+# from apps.userDetail.current_user import get_current_user
 
 # Create your models here.
 
@@ -96,6 +98,7 @@ class Book(models.Model):
     price           = models.DecimalField(default=0,max_digits=10, decimal_places=2)
     purchase_date   = models.DateField(auto_now_add=True)
     status          = models.BooleanField(default=True)
+    # created_by      = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL, editable=False, default=get_current_user)
     created_at      = models.DateTimeField(auto_now_add=True)
     updated_at      = models.DateTimeField(auto_now=True)
 

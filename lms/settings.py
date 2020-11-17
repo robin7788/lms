@@ -31,9 +31,13 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    #Added custom app
     'apps.Book',
+    'apps.userDetail',
     'imagekit',
     'admin_black.apps.AdminBlackConfig',
+
+    #System apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'apps.userDetail.current_user.CurrentUserMiddleware',
 ]
 
 ROOT_URLCONF = 'lms.urls'
