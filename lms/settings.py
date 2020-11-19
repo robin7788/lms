@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'apps.Book',
     'apps.userDetail',
     'imagekit',
+    'ajax_select',
     'admin_black.apps.AdminBlackConfig',
 
     #System apps

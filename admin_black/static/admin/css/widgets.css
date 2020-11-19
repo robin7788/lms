@@ -280,7 +280,7 @@ p.datetime {
     font-weight: normal;
     font-size: 11px;
     color: #ccc;
-    float: right;
+    float: none;
 }
 
 .datetime input, .form-row .datetime input.vDateField, .form-row .datetime input.vTimeField {
