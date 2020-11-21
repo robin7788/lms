@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'apps.userDetail',
     'imagekit',
     'ajax_select',
+    'rangefilter',
     'admin_black.apps.AdminBlackConfig',
 
     #System apps

@@ -3,6 +3,7 @@ from imagekit.admin import AdminThumbnail
 from imagekit import ImageSpec
 from imagekit.processors import ResizeToFill
 from imagekit.cachefiles import ImageCacheFile
+from apps.userDetail.models import IssueBookDetail
 
 # Register your models here.
 from admin_black.filters import (
@@ -43,7 +44,7 @@ def make_deactive(modeladmin, request, queryset):
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
-    list_display = ("name", "shelf", "author", "category", "type", "status", "created_at")
+    list_display = ("name", "quantity", "get_quantity_available", "shelf", "author", "category", "type", "status")
     search_fields = ("name", "shelf__name", "author__name", "category__name")
     list_filter = (
             ("shelf", RelatedDropdownFilter),
@@ -53,6 +54,11 @@ class BookAdmin(admin.ModelAdmin):
     actions = [make_active, make_deactive]
     actions_on_top = False
     actions_on_bottom = True
+
+    # Get remaining book in Library
+    def get_quantity_available(self, obj):
+        return obj.quantity - IssueBookDetail.objects.filter(return_status= 0).filter(book_id=obj.id).count()
+    get_quantity_available.short_description = 'Available'
 
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
