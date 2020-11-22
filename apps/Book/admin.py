@@ -44,8 +44,8 @@ def make_deactive(modeladmin, request, queryset):
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
-    list_display = ("name", "quantity", "get_quantity_available", "shelf", "author", "category", "type", "status")
-    search_fields = ("name", "shelf__name", "author__name", "category__name")
+    list_display = ("name", 'isbn_number', "get_quantity_available", "shelf", "author", "category", "type", "status")
+    search_fields = ("name", 'isbn_number', "shelf__name", "author__name", "category__name")
     list_filter = (
             ("shelf", RelatedDropdownFilter),
             ("category", RelatedDropdownFilter),
