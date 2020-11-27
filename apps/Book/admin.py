@@ -12,13 +12,6 @@ from admin_black.filters import (
 
 from .models import Book, Author, Publication, Category, Type, Genre, Shelf
 
-# admin.site.register(Author)
-# admin.site.register(Publication)
-# admin.site.register(Category)
-# admin.site.register(Type)
-# admin.site.register(Genre)
-# admin.site.register(Shelf)
-
 class AdminThumbnailSpec(ImageSpec):
     processors = [ResizeToFill(100, 50)]
     format = 'JPEG'
@@ -55,7 +48,11 @@ class BookAdmin(admin.ModelAdmin):
     actions_on_top = False
     actions_on_bottom = True
 
-    # Get remaining book in Library
+    """
+    ---------------------------------------------------------------------
+    Get remaining book value in Library
+    ---------------------------------------------------------------------
+    """
     def get_quantity_available(self, obj):
         return obj.quantity - IssueBookDetail.objects.filter(return_status= 0).filter(book_id=obj.id).count()
     get_quantity_available.short_description = 'Available'

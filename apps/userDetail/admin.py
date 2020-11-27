@@ -8,19 +8,35 @@ from django.utils.html import format_html
 
 from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
 
-# make status active
+"""
+---------------------------------------------------------------------
+Make selected data status active 
+---------------------------------------------------------------------
+"""
 def make_active(modeladmin, request, queryset):
     queryset.update(status=1)
 
-# make status active
+"""
+---------------------------------------------------------------------
+Make selected data status not active 
+---------------------------------------------------------------------
+"""
 def make_deactive(modeladmin, request, queryset):
     queryset.update(status=0)
 
-# make status active
+"""
+---------------------------------------------------------------------
+Make selected data return status active 
+---------------------------------------------------------------------
+"""
 def make_return_active(modeladmin, request, queryset):
     queryset.update(return_status=1)
 
-# make status active
+"""
+---------------------------------------------------------------------
+Make selected data return status not active 
+---------------------------------------------------------------------
+"""
 def make_return_deactive(modeladmin, request, queryset):
     queryset.update(return_status=0)
 
@@ -73,13 +89,21 @@ class IssueBookDetailAdmin(AjaxSelectAdmin):
         'user'  : 'user'
     })
 
-    # Display ISBN number of book in issue book detail
+    """
+    ---------------------------------------------------------------------
+    Display ISBN number of book in issue book detail
+    ---------------------------------------------------------------------
+    """
     def get_book_isbn(self, obj):
         return obj.book.isbn_number
     get_book_isbn.short_description = 'ISBN No'
     get_book_isbn.admin_order_field = 'book__isbn_number'
 
-    # get date only from datetime
+    """
+    ---------------------------------------------------------------------
+    Get date only from datetime timestamp
+    ---------------------------------------------------------------------
+    """
     def get_date_formatted(self, obj):
 
         if obj:

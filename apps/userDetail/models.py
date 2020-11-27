@@ -8,8 +8,6 @@ import datetime
 from django.utils.html import format_html
 
 
-
-
 class UserDetail(models.Model):
     # user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user')
     name 			= models.CharField(max_length=150)
@@ -40,7 +38,12 @@ class IssueBookDetail(models.Model):
     def __str__(self):
         return self.book.name
 
-    # date published replaces return_date in the admin - displays red date when date excede  not published.
+    """
+    ---------------------------------------------------------------------
+    Change colors of returning date to red if returning date exceed 
+    today's date
+    ---------------------------------------------------------------------
+    """
     def returning_date(self):
         if self.return_date.date() < datetime.date.today():
             return format_html('<span style="color: #cc0033; font-weight: bold;">{0}</span>',

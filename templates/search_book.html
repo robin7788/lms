@@ -1,0 +1,120 @@
+{% extends 'frontend/theme.html' %}
+
+{% load static i18n %}
+{% static "images/" as baseUrl %}
+
+{% block extra_stylesheet %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/datatable.min.css' %}" />
+{% endblock %}
+
+{% block content %}
+    {% include 'frontend/partial_banner.html' %}
+    <div class="site-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4"></div>
+          <div class="col-md-8">
+            <div class="row">
+                <input type="text" name="name" class="book_name form-control col-md-6" placeholder="{% trans 'Search by name' %}" />
+                <select name="category" class="book_category form-control col-md-3" data-column="1">
+                    <option value="">{% trans "Select Category" %}</option>
+                    {% for category in bookCategories %}
+                      <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+                <select name="publication" class="book_publication form-control col-md-3" data-column="2">
+                    <option value="">{% trans "Select Publication" %}</option>
+                    {% for publication in bookPublications %}
+                        <option value="{{ publication.id }}">{{ publication.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+          </div>
+        </div>
+          <table class="datatables table">
+            <thead>
+                <tr>
+                    <th>{% trans "Name" %}</th>
+                    <th>{% trans "Availability" %}</th>
+                    <th>{% trans "Author" %}</th>
+                    <th>{% trans "Category" %}</th>
+                    <th>{% trans "Publication" %}</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+      </div>
+
+    </div>
+
+{% endblock %}
+
+{% block extra_script %}
+    <script src="{% static 'js/datatable.min.js' %}"></script>
+    <script src="{% static 'js/datatable.bootstrap.min.js' %}"></script>
+    <script type="text/javascript">
+        var NAME_LIST_JSON_URL = '{% url "name_list_json" %}';
+        // translations for datatables
+        var oLanguages = {
+           oPaginate:{
+                sFirst:'<<',
+                sLast: '>>',
+                sNext: '>',
+                sPrevious: '<'
+            },
+            sInfo:'{% trans "Showing _START_ to _END_ of _TOTAL_ entries" %}',
+            sInfoEmpty: '{% trans "No entries to show" %}',
+            sInfoFiltered: '{% trans "(filtered from _MAX_ total entries)" %}',
+            sLengthMenu:'{% trans "Show _MENU_ entries" %}',
+            sProcessing: '{% trans "Processing" %}',
+            sSearch: '{% trans "Search name:" %}',
+            sZeroRecords: '{% trans "No data to show" %}'
+        }
+
+      $(document).ready(function() {
+          var dt_table = $('.datatables').DataTable({
+              "dom": '<"top">r' +
+                '<bottom><"card-footer card-pagination"<"row"<"col-md-12 text-right"><"col-md-4"l><"col-md-8"p><"col-md-12">>>',
+              "oLanguage": oLanguages,
+              "columnDefs": [
+                { "orderable": true, "targets": 0 },
+                { "orderable": false, "targets": 1 },
+                { "orderable": false, "targets": 2 },
+                { "orderable": false, "targets": 3 },
+                { "orderable": false, "targets": 4 },
+              ],
+              "bFilter": true,
+              "aLengthMenu": [[15, 25, 50, 100], [15, 25, 50, 100]],
+              "pageLength" : 15,
+              "aaSorting": [[ 0, "asc" ]],
+              "bAutoWidth": true,
+              "bProcessing": true,
+              "bServerSide": true,
+              "bStateSave": true,
+              "sAjaxSource": NAME_LIST_JSON_URL
+          });
+
+          // Search from custom field
+        $('body').on( 'keyup change', '.book_category, .book_publication', function () {
+            var dtColumn = $(this).data("column");
+            dt_table.columns( dtColumn )
+                .search( this.value )
+                .draw();
+        } );
+
+        $('body').on( 'keyup change', '.book_name', function () {
+            dt_table.search(this.value)
+                .draw();
+        });
+
+
+        {% if search_data %}
+          $('.book_name').val("{{ search_data.name }}").trigger('change');
+          $('.book_category').val("{{ search_data.category_id }}").trigger('change');
+          $('.book_publication').val("{{ search_data.publication_id }}").trigger('change');
+        {% endif %}
+
+      });
+    </script>
+
+{% endblock %}

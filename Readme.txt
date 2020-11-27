@@ -13,3 +13,6 @@ Install "pip install git+https://github.com/app-generator/django-admin-black.git
 **For filter design from list to select**
 Install "pip install django-admin-list-filter-dropdown"
 
+** For book search via datatables
+Install "pip install django-datatables-view"
+

@@ -191,7 +191,8 @@ function AjaxUpdateAdminBlackSetting(form_data) {
         type: 'POST',
         data: form_data,
         success: function (data) {
-            console.log(data);
+//            console.log(data);
+            console.log('');
         },
         error: function () {
             alert('Error occurred');

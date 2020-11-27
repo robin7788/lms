@@ -108,3 +108,17 @@ class Book(models.Model):
     # change app name object to actual data name
     def __str__(self):
         return self.name
+
+    """
+    ---------------------------------------------------------------------
+    Calculates the available books in the library and returns "Yes" 
+    if book is available else "No" 
+    ---------------------------------------------------------------------
+    """
+    @property
+    def available_quantity(self):
+        from apps.userDetail.models import IssueBookDetail
+        count_value = self.quantity - IssueBookDetail.objects.filter(return_status= 0).filter(book_id=self.id).count()
+        if count_value > 0:
+            return 'Yes'
+        return 'No'
