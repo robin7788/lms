@@ -355,7 +355,7 @@ p.file-upload {
 }
 
 .aligned p.file-upload {
-    margin-left: 170px;
+    /* margin-left: 170px; */
 }
 
 .file-upload a {

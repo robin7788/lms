@@ -61,8 +61,8 @@ class IssueBookDetailAdmin(AjaxSelectAdmin):
         })
 
     )
-    list_display = ("user", "book", 'get_date_formatted', "return_status")
-    search_fields = ("user__name", "book__name",)
+    list_display = ("user", "book", "get_book_isbn", 'get_date_formatted', "return_status")
+    search_fields = ("user__name", "book__name", "book__isbn_number",)
     exclude = ['issued_by',]
     actions = [make_return_active, make_return_deactive]
     actions_on_top = False
@@ -72,6 +72,12 @@ class IssueBookDetailAdmin(AjaxSelectAdmin):
         'book' : 'book',
         'user'  : 'user'
     })
+
+    # Display ISBN number of book in issue book detail
+    def get_book_isbn(self, obj):
+        return obj.book.isbn_number
+    get_book_isbn.short_description = 'ISBN No'
+    get_book_isbn.admin_order_field = 'book__isbn_number'
 
     # get date only from datetime
     def get_date_formatted(self, obj):

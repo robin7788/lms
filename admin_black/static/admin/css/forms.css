@@ -82,6 +82,13 @@ form ul.inline li {
     vertical-align: middle;
     height: 26px;
 }
+input:lang(en)~.custom-file-label::after {
+    content: "Browse";
+    background: #2182f7;
+    height: 100%;
+    min-width: 15%;
+    text-align: center;
+}
 
 .aligned label + p, .aligned label + div.help, .aligned label + div.readonly {
     padding: 6px 0;

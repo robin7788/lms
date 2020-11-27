@@ -54,6 +54,11 @@ notification = {
 };
 
 $(document).ready(function () {
+
+    $('.custom-file-input').on('change',function(){
+        var fileName = $(this).val().replace(/C:\\fakepath\\/i, '');
+        $(this).parent().find('label').text(fileName);
+    })
     $().ready(function () {
         $sidebar = $('.sidebar');
         $navbar = $('.navbar');
