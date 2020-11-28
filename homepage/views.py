@@ -3,6 +3,9 @@ from apps.Book.models import Book, Category, Publication
 
 from django_datatables_view.base_datatable_view import BaseDatatableView
 from django.db.models import Q
+from django.utils.html import format_html
+
+
 
 """
 ---------------------------------------------------------------------
@@ -23,6 +26,21 @@ def index(request):
 
 """
 ---------------------------------------------------------------------
+Display book list page with some basic parameters
+---------------------------------------------------------------------
+"""
+def book_detail(request, book_id):
+    try:
+        book = Book.objects.get(id=book_id, status=1)
+    except Book.DoesNotExist:
+        book = None
+    return render(request, 'book_detail.html', {
+        'book': book
+    })
+
+
+"""
+---------------------------------------------------------------------
 Code to show book list for ajax search in datatables
 ---------------------------------------------------------------------
 """
@@ -31,6 +49,17 @@ class BookNameListJson(BaseDatatableView):
     model = Book
     columns = ['name', 'available_quantity', 'author', 'category', 'publication']
     order_columns = ['name', '', '', '', '']
+
+
+    def render_column(self, row, column):
+        # We want to render user as a custom column
+        if column == 'name':
+            name = format_html('<a href="/book_detail/'+ str(row.pk) + '">' + row.name + '</a>')
+            # name = format_html('<a href="/book_detail/' + str(row.pk) + '">' + row.name + '</a>')
+            # escape HTML for security reasons
+            return name
+        else:
+            return super(BookNameListJson, self).render_column(row, column)
 
     def filter_queryset(self, qs):
         sSearch = self.request.GET.get('sSearch', None)

@@ -7,5 +7,6 @@ from .views import BookNameListJson
 urlpatterns = [
     path('', views.index, name='index'),
     path('search', views.search, name='search'),
+    path('book_detail/<book_id>', views.book_detail, name='book_detail'),
     url(r'^name_data/$', BookNameListJson.as_view(), name="name_list_json"),
 ]

@@ -1,0 +1,81 @@
+{% extends 'frontend/theme.html' %}
+
+{% load static i18n %}
+{% static "images/" as baseUrl %}
+
+{% block extra_stylesheet %}
+
+{% endblock %}
+
+{% block content %}
+    {% include 'frontend/partial_banner.html' %}
+    <div class="site-section">
+      <div class="container">
+        <div class="row">
+            {% if book %}
+                  <div class="col-md-3">
+                    <img src="{% if book.img %}{{ book.img_thumb.url }}{% else %}{{baseUrl}}book.jpg{% endif %}" class="img-rounded" alt="{{ book.name }}" style="max-width: 100%;" />
+                  </div>
+                  <div class="col-md-9">
+                      <h3>{{ book.name }}</h3>
+                      <table class="table">
+                          <tbody>
+                            <tr>
+                                <th>{% trans 'ISBN No.' %}</th>
+                                <td>{{ book.isbn_number }}</td>
+                            </tr>
+                            <tr>
+                                <th>{% trans 'Author' %}</th>
+                                <td>{{ book.author }}</td>
+                            </tr>
+                            <tr>
+                                <th>{% trans 'Publication' %}</th>
+                                <td>{{ book.publication }}</td>
+                            </tr>
+                            <tr>
+                                <th>{% trans 'Volume' %}</th>
+                                <td>{{ book.volume }}</td>
+                            </tr>
+                            <tr>
+                                <th>{% trans 'Genre' %}</th>
+                                <td>{{ book.genre }}</td>
+                            </tr>
+                            <tr>
+                                <th>{% trans 'Type' %}</th>
+                                <td>{{ book.type }}</td>
+                            </tr>
+                            <tr>
+                                <th>{% trans 'Category' %}</th>
+                                <td>{{ book.category }}</td>
+                            </tr>
+                            <tr>
+                                <th>{% trans 'Availability' %}</th>
+                                <td>{{ book.available_quantity }}</td>
+                            </tr>
+                          </tbody>
+                      </table>
+                  </div>
+                {% if book.desc %}
+                    <div class="col-md-12">
+                        <strong>Description</strong>
+                        <p>
+                          {{ book.desc }}
+                        </p>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="col-md-12">
+                    <h1>Select book is not available</h1>
+                </div>
+            {% endif %}
+        </div>
+      </div>
+
+    </div>
+
+{% endblock %}
+
+{% block extra_script %}
+
+
+{% endblock %}

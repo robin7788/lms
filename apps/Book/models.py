@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 # from apps.userDetail.current_user import get_current_user
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill
 
 # Create your models here.
 
@@ -96,6 +98,11 @@ class Book(models.Model):
     category        = models.ForeignKey(Category, blank=True, null=True, on_delete=models.SET_NULL)
     shelf           = models.ForeignKey(Shelf, blank=True, null=True, on_delete=models.SET_NULL)
     img             = models.ImageField(upload_to='images/author', blank=True)
+    # Creating thumb image using imagekit
+    img_thumb       = ImageSpecField(source='img',
+                                      processors=[ResizeToFill(250, 250)],
+                                      format='JPEG',
+                                      options={'quality': 60})
     desc            = models.TextField(blank=True)
     quantity        = models.PositiveIntegerField(default=0)
     price           = models.DecimalField(default=0,max_digits=10, decimal_places=2)
