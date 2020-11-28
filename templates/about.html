@@ -1,0 +1,42 @@
+{% extends 'frontend/theme.html' %}
+
+{% load static i18n %}
+{% static "images/" as baseUrl %}
+
+{% block extra_stylesheet %}
+
+{% endblock %}
+
+{% block content %}
+    {% include 'frontend/partial_banner.html' %}
+    <div class="site-section">
+      <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>UEL LMS</h3>
+                <p>
+                    <strong>"UEL LMS or UEL Library Management System"</strong>
+                    is a software that manages all books, users and other problems related to library.<br />
+                    This library management system has some features which are listed below.
+                </p>
+                <ul>
+                    <li>Records book according to category, genre, type and publications.</li>
+                    <li>Manages and displays book availability according to book issue.</li>
+                    <li>Efficient book search and management.</li>
+                    <li>Role based system.</li>
+                    <li>Analytical view of different categories in dashboard.</li>
+                    <li>User and issue book management with fine system is ease.</li>
+                    <li>Adding or integrating new module in the system is easy.</li>
+                </ul>
+            </div>
+        </div>
+      </div>
+
+    </div>
+
+{% endblock %}
+
+{% block extra_script %}
+
+
+{% endblock %}

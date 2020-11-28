@@ -19,9 +19,8 @@
             <nav class="site-navigation position-relative text-right" role="navigation">
 
               <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
-                <li class="active"><a href="/"><span>Home</span></a></li>
-                <li><a href="#"><span>About</span></a></li>
-                <li><a href="#"><span>Contact</span></a></li>
+                <li class="{% if request.path == '/' %} active{% endif %}"><a href="/"><span>Home</span></a></li>
+                <li class="{% if request.path == '/about' %} active{% endif %}"><a href="/about"><span>About</span></a></li>
               </ul>
             </nav>
           </div>

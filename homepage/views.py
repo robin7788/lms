@@ -29,6 +29,15 @@ def index(request):
 Display book list page with some basic parameters
 ---------------------------------------------------------------------
 """
+def about(request):
+    return render(request, 'about.html')
+
+
+"""
+---------------------------------------------------------------------
+Display book list page with some basic parameters
+---------------------------------------------------------------------
+"""
 def book_detail(request, book_id):
     try:
         book = Book.objects.get(id=book_id, status=1)
