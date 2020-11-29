@@ -9,6 +9,11 @@ from imagekit.processors import ResizeToFill
 class Author(models.Model):
     name    = models.CharField(max_length=100)
     img     = models.ImageField(upload_to='images/author', blank=True)
+    # Creating thumb image using imagekit
+    img_thumb       = ImageSpecField(source='img',
+                                      processors=[ResizeToFill(250, 250)],
+                                      format='JPEG',
+                                      options={'quality': 60})
     desc    = models.TextField(blank=True)
     status  = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -61,6 +66,11 @@ class Publication(models.Model):
 
     name    = models.CharField(max_length=100)
     img    = models.ImageField(upload_to='images/publication', blank=True)
+    # Creating thumb image using imagekit
+    img_thumb       = ImageSpecField(source='img',
+                                      processors=[ResizeToFill(250, 250)],
+                                      format='JPEG',
+                                      options={'quality': 60})
     address = models.TextField(blank=True)
     phone   = models.CharField(max_length=25, blank=True)
     desc    = models.TextField(blank=True)
@@ -97,7 +107,7 @@ class Book(models.Model):
     type            = models.ForeignKey(Type, blank=True, null=True, on_delete=models.SET_NULL)
     category        = models.ForeignKey(Category, blank=True, null=True, on_delete=models.SET_NULL)
     shelf           = models.ForeignKey(Shelf, blank=True, null=True, on_delete=models.SET_NULL)
-    img             = models.ImageField(upload_to='images/author', blank=True)
+    img             = models.ImageField(upload_to='images/book', blank=True)
     # Creating thumb image using imagekit
     img_thumb       = ImageSpecField(source='img',
                                       processors=[ResizeToFill(250, 250)],

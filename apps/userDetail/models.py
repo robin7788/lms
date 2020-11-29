@@ -45,12 +45,14 @@ class IssueBookDetail(models.Model):
     ---------------------------------------------------------------------
     """
     def returning_date(self):
-        if self.return_date.date() < datetime.date.today():
-            return format_html('<span style="color: #cc0033; font-weight: bold;">{0}</span>',
-                               self.return_date.strftime('%b. %d, %Y'))
+        return_date_val = self.return_date.strftime('%b. %d, %Y')
+        if self.return_status == 0:
+            if self.return_date.date() < datetime.date.today():
+                return_date_val = format_html('<span style="color: #cc0033; font-weight: bold;">{0}</span>', return_date_val)
         else:
-            return format_html('<span style="color: #000;">{0}</span>',
-                               self.return_date.strftime('%b. %d, %Y'))
+            return_date_val = format_html('<span style="color: #70bf2b;">{0}</span>', return_date_val)
+
+        return return_date_val
 
     returning_date.allow_tags = True
         

@@ -63,7 +63,9 @@ def get_admin_black_setting(context):
 
 from apps.Book.models import Book
 from apps.Book.models import Category
+from apps.userDetail.models import IssueBookDetail
 from django.contrib.auth import get_user_model
+from datetime import datetime
 
 
 @assignment_tag(takes_context=True)
@@ -72,10 +74,15 @@ def get_admin_counted_data(context):
     books = Book.objects.count()
     librarians = users.objects.filter(groups__name='librarian').count()
     categories = Category.objects.count()
+    recent_issued_book = IssueBookDetail.objects.filter(return_date__lt=datetime.now()).\
+        filter(return_status=False).\
+        order_by('-return_date').\
+        all()[:10]
     res = {
         "books" : books,
         "librarians" : librarians,
         "categories" : categories,
+        "recent_issued_book" : recent_issued_book,
     }
 
     return res

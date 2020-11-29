@@ -175,128 +175,36 @@
                 </div>
             </div>
             <div class="col-lg-6 col-sm-6">
-                <div class="card ">
+                <div class="card card-tasks {{ direction.reverse_panel }}">
                     <div class="card-header {{ direction.panel }}">
-                        <h4 class="card-title">{% trans "Simple Table" %}</h4>
+                        <h6 class="title d-inline">{% trans 'Issued Book Detail' %}</h6>
+                        <p class="card-category d-inline">{% trans 'Delayed in returning book' %}</p>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table tablesorter " id="">
-                                <thead class="text-primary">
-                                <tr>
-                                    <th>
-                                        Name
-                                    </th>
-                                    <th>
-                                        Country
-                                    </th>
-                                    <th>
-                                        City
-                                    </th>
-                                    <th class="text-center">
-                                        Salary
-                                    </th>
-                                </tr>
-                                </thead>
+                            <table class="table tablesorter ">
                                 <tbody>
-                                <tr>
-                                    <td>
-                                        Dakota Rice
-                                    </td>
-                                    <td>
-                                        Niger
-                                    </td>
-                                    <td>
-                                        Oud-Turnhout
-                                    </td>
-                                    <td class="text-center">
-                                        $36,738
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Minerva Hooper
-                                    </td>
-                                    <td>
-                                        Curaçao
-                                    </td>
-                                    <td>
-                                        Sinaai-Waas
-                                    </td>
-                                    <td class="text-center">
-                                        $23,789
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Sage Rodriguez
-                                    </td>
-                                    <td>
-                                        Netherlands
-                                    </td>
-                                    <td>
-                                        Baileux
-                                    </td>
-                                    <td class="text-center">
-                                        $56,142
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Philip Chaney
-                                    </td>
-                                    <td>
-                                        Korea, South
-                                    </td>
-                                    <td>
-                                        Overland Park
-                                    </td>
-                                    <td class="text-center">
-                                        $38,735
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Doris Greene
-                                    </td>
-                                    <td>
-                                        Malawi
-                                    </td>
-                                    <td>
-                                        Feldkirchen in Kärnten
-                                    </td>
-                                    <td class="text-center">
-                                        $63,542
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Mason Porter
-                                    </td>
-                                    <td>
-                                        Chile
-                                    </td>
-                                    <td>
-                                        Gloucester
-                                    </td>
-                                    <td class="text-center">
-                                        $78,615
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Jon Porter
-                                    </td>
-                                    <td>
-                                        Portugal
-                                    </td>
-                                    <td>
-                                        Gloucester
-                                    </td>
-                                    <td class="text-center">
-                                        $98,615
-                                    </td>
-                                </tr>
+                                {% for recent_book in admin_counted_data.recent_issued_book %}
+                                    <tr>
+                                        <td class="text-center">
+                                            <img src="{% if recent_book.book.img %}{{ recent_book.book.img_thumb.url }}{% else %}{% static 'images/book.jpg' %}{% endif %}" class="img-rounded" alt="{{ recent_book.book.name }}" style="max-width: 50px;" />
+                                        </td>
+                                        <td class="{{ direction.panel }}">
+                                            <p class="title">{{ recent_book.book }}</p>
+                                                <p class="text-muted">
+                                                    {% filter capfirst %}{{ recent_book.user }} | {{recent_book.user.email}}{% endfilter %}
+                                                </p>
+
+                                        </td>
+                                        <td class="td-actions">
+                                            <a href="#" type="button" rel="tooltip" title=""
+                                               class="btn btn-link"
+                                               data-original-title="{{ recent_book.book }}">
+                                                {{ recent_book.returning_date }}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
                                 </tbody>
                             </table>
                         </div>

@@ -104,3 +104,5 @@ def search(request):
         'bookCategories': book_categories,
         'bookPublications': book_publications
     })
+
+

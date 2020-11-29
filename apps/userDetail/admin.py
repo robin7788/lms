@@ -54,15 +54,6 @@ class UserDetailAdmin(admin.ModelAdmin):
 @admin.register(IssueBookDetail)
 class IssueBookDetailAdmin(AjaxSelectAdmin):
     list_filter = ("return_status", ('return_date', DateRangeFilter))
-    # fields = (
-    #     "book",
-    #     "user",
-    #     "returning_date",
-    #     "return_date",
-    #     "return_status",
-    #     "fine",
-    #     "fine_note"
-    # )
     fieldsets = (
         (None, {
             'fields': ("book", "user", "issue_date", "return_date",)
@@ -105,14 +96,17 @@ class IssueBookDetailAdmin(AjaxSelectAdmin):
     ---------------------------------------------------------------------
     """
     def get_date_formatted(self, obj):
-
+        return_date_val = ""
         if obj:
-            if obj.return_date.date() < datetime.date.today():
-                return format_html('<span style="color: #cc0033; font-weight: bold;">{0}</span>',
-                                   obj.return_date.strftime('%b. %d, %Y'))
+            return_date_val = obj.return_date.strftime('%b. %d, %Y')
+            if obj.return_status == 0:
+                if obj.return_date.date() < datetime.date.today():
+                    return_date_val = format_html('<span style="color: #cc0033; font-weight: bold;">{0}</span>', return_date_val)
             else:
-                return obj.return_date.date()
-        return ""
+                return_date_val = format_html('<span style="color: #70bf2b;">{0}</span>', return_date_val)
+
+        return return_date_val
+
     get_date_formatted.admin_order_field = 'return_date'
     get_date_formatted.short_description = 'Return date'
 
