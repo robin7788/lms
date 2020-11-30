@@ -7,6 +7,39 @@ Install "pip install django-imagekit"
 **For connection of mysql to python**
 Install "pip install mysqlclient"
 
+"""
+Note: If Namecheap or any other hosting does not allow user to install mysqlclient for connecting mysql to python
+Install PyMySQL using following method (https://www.dev2qa.com/how-to-connect-mysql-database-in-django-project/)
+OR
+"""
+
+** For connecting mysql use of pymysql**
+1. pip install pymysql
+
+2. #edit lms/setting.py
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': '127.0.0.1',
+            'PORT': '3306',
+            'NAME': 'XXXXXX',
+            'USER': 'XXXXXX',
+            'PASSWORD': 'XXXXXX',
+            # connect options
+            'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",},
+        }
+    }
+3. #edit lms/__init__.py
+    import pymysql
+    # for bypassing pymysql required version
+    pymysql.version_info = (1, 4, 0, "final", 0)
+    # install pymysql as mysql database driver.
+    pymysql.install_as_MySQLdb()
+
+"""
+End of installing PyMySQL
+"""
+
 **For Theme**
 Install "pip install git+https://github.com/app-generator/django-admin-black.git"
 
@@ -15,4 +48,12 @@ Install "pip install django-admin-list-filter-dropdown"
 
 ** For book search via datatables
 Install "pip install django-datatables-view"
+
+
+** For uploading files some part of django code are changed as per below link **
+"""
+This method is used because namecheap cpanel shared hosting is not allowing me to upload files in the system as per
+django admin form method.
+"""
+https://medium.com/@mnydigital/how-to-resolve-django-admin-404-post-error-966ce0dcd39d
 

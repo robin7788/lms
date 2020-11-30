@@ -57,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'apps.userDetail.current_user.CurrentUserMiddleware',
+    'apps.middleware.ImageField404Middleware.ImageField404Middleware',
 ]
 
 ROOT_URLCONF = 'lms.urls'
