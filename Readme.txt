@@ -1,11 +1,11 @@
 **For image field**
-Install "pip install pillow"
+-- pip install pillow
 
 **For uploaded Image thumbnail**
-Install "pip install django-imagekit"
+-- pip install django-imagekit
 
 **For connection of mysql to python**
-Install "pip install mysqlclient"
+-- pip install mysqlclient
 
 """
 Note: If Namecheap or any other hosting does not allow user to install mysqlclient for connecting mysql to python
@@ -41,19 +41,19 @@ End of installing PyMySQL
 """
 
 **For Theme**
-Install "pip install git+https://github.com/app-generator/django-admin-black.git"
+-- pip install git+https://github.com/app-generator/django-admin-black.git
 
 **For filter design from list to select**
-Install "pip install django-admin-list-filter-dropdown"
+-- pip install django-admin-list-filter-dropdown
 
 ** For book search via datatables
-Install "pip install django-datatables-view"
+-- pip install django-datatables-view
 
 
 ** For uploading files some part of django code are changed as per below link **
 """
-This method is used because namecheap cpanel shared hosting is not allowing me to upload files in the system as per
-django admin form method.
+    This method is used because namecheap cpanel shared hosting is not allowing me to upload files in the system as per
+    django admin form method.
 """
-https://medium.com/@mnydigital/how-to-resolve-django-admin-404-post-error-966ce0dcd39d
+-- https://medium.com/@mnydigital/how-to-resolve-django-admin-404-post-error-966ce0dcd39d
 
