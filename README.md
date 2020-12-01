@@ -13,9 +13,11 @@
 -- `pip install mysqlclient`
 
 ------------------------------------------------------------------------------------------------------------------------
-_Note: If Namecheap or any other hosting does not allow user to install mysqlclient for connecting mysql to python
+
+Note: If Namecheap or any other hosting does not allow user to install mysqlclient for connecting mysql to python
 Install PyMySQL using following method (https://www.dev2qa.com/how-to-connect-mysql-database-in-django-project/)
-OR follow below code_
+OR follow below code
+
 -------------------------------------------------------------------------------------------------------------------------
 **For connecting mysql use of pymysql**
 1. pip install pymysql
