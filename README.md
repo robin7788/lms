@@ -74,3 +74,12 @@ End: of installing PyMySQL
 -------------
 https://medium.com/@mnydigital/how-to-resolve-django-admin-404-post-error-966ce0dcd39d
 
+-----------------------------------------------------------------------
+**For test cases** 
+
+    python manage.py test apps.userDetail.tests For user detail and issue book app
+    python manage.py test apps.Book.tests //For book app
+    OR
+    python manage.py test // For both apps at a time
+    
+        

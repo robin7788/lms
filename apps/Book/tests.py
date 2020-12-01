@@ -143,7 +143,7 @@ class BookTestCase(TestCase):
             print('Shelf not found.')
 
     """
-    Check whether added users are correctly identified
+    Check whether added book are correctly identified
     """
     def test_book_exists(self):
         try:
