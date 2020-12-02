@@ -241,4 +241,31 @@ $(document).ready(function () {
             $this.parent().find('ul.navbar-dropdown').slideDown();
         }
     }
+
+    $('body').on('click', '.sendmailbutton', function() {
+        var $this = $(this);
+        var $parent = $this.parent();
+        var url = $this.attr('href');
+        $parent.html('<i class="tim-icons icon-refresh-01"></i>');
+        notification.warning("<p class='text-left'>Sending email.</p>", 'top', "right");
+        $.ajax({
+            url: url,
+            async: true,
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+              if(data.status == 200) {
+                $parent.parent().html(data.email_no + '<i class="tim-icons icon-check-2"></i>');
+                notification.success("<p class='" + data.panel + "'>" + data.message + "</p>", 'top', data.notify);
+              } else {
+                $parent.html('<i class="tim-icons icon-simple-remove"></i>');
+                notification.danger("<p class='" + data.panel + "'>" + data.message + "</p>", 'top', data.notify);
+              }
+            },
+            error: function(xhr, error) {
+                $parent.html('<i class="tim-icons icon-simple-remove"></i>');
+                notification.danger("<p class='text-left'>Error while sending email. Please try later</p>", 'top', "right");
+            }
+          });
+        return false;
+    })
 });

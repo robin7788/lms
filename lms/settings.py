@@ -148,3 +148,11 @@ STATIC_ROOT = BASE_DIR / "assets"
 
 MEDIA_URL = "/images/"
 MEDIA_ROOT = BASE_DIR / "images"
+
+EMAIL_HOST = 'lms.merobin.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'info@lms.merobin.com'
+EMAIL_HOST_PASSWORD = 'aB~}.IgY$V=v'
+
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True

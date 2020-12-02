@@ -29,6 +29,7 @@ class IssueBookDetail(models.Model):
     return_date     = models.DateTimeField(auto_now=False)
     return_status   = models.BooleanField(default=False)
     user            = models.ForeignKey(UserDetail, on_delete=models.CASCADE)
+    sent_email      = models.PositiveIntegerField(default=0)
     fine            = models.DecimalField(default=0,max_digits=10, decimal_places=2, validators=[MinValueValidator(Decimal('0.00'))])
     fine_note       = models.TextField(blank=True)
     created_by      = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL, editable=False, default=get_current_user)
