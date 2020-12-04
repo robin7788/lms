@@ -254,7 +254,7 @@ $(document).ready(function () {
             contentType: "application/json; charset=utf-8",
             success: function (data) {
               if(data.status == 200) {
-                $parent.parent().html(data.email_no + '<i class="tim-icons icon-check-2"></i>');
+                $parent.parent().html(data.email_no + ' <i class="tim-icons icon-check-2"></i>');
                 notification.success("<p class='" + data.panel + "'>" + data.message + "</p>", 'top', data.notify);
               } else {
                 $parent.html('<i class="tim-icons icon-simple-remove"></i>');

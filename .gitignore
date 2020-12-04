@@ -2,6 +2,11 @@
 assets/*
 images/*
 media/*
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
 
 lms/__pycache__/
 

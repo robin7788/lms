@@ -118,6 +118,12 @@ class IssueBookDetailAdmin(AjaxSelectAdmin):
     get_date_formatted.admin_order_field = 'return_date'
     get_date_formatted.short_description = 'Return date'
 
+
+    """
+    --------------------------------------------------------------------------------
+    Add new url / route in system to send mail manually to user who have issued book
+    --------------------------------------------------------------------------------
+    """
     def get_urls(self):
         urls = super().get_urls()
         custom_urls = [
@@ -129,6 +135,13 @@ class IssueBookDetailAdmin(AjaxSelectAdmin):
         ]
         return custom_urls + urls
 
+
+    """
+    ---------------------------------------------------------------------
+    Display send mail button while listing user issued book.
+    It also shows the number of email sent to user to notify
+    ---------------------------------------------------------------------
+    """
     def sendmail_actions(self, obj):
         if obj and obj.return_status == 0:
             return format_html(
@@ -137,9 +150,15 @@ class IssueBookDetailAdmin(AjaxSelectAdmin):
             )
         return ''
 
-    sendmail_actions.short_description = 'Sendmail / status'
+    sendmail_actions.short_description = 'Sent / Send mail'
     sendmail_actions.allow_tags = True
 
+
+    """
+    ---------------------------------------------------------------------
+    It sends mail to selected user in specific html format 
+    ---------------------------------------------------------------------
+    """
     def sendmail(self, request, user_id, *args, **kwargs):
         message = ''
         status = 200
@@ -169,7 +188,7 @@ class IssueBookDetailAdmin(AjaxSelectAdmin):
                 msg.send()
 
         except UserDetail.DoesNotExist:
-            message='Error while sending mail. Please try after sometime.'
+            message = 'Error while sending mail. Please try after sometime.'
             status = 404
 
         data = {
@@ -182,7 +201,12 @@ class IssueBookDetailAdmin(AjaxSelectAdmin):
         return JsonResponse(data)
         # return JsonResponse(data, status=status)
 
-
+    """
+    ---------------------------------------------------------------------
+    It loads a script in userDetail app in order to show or hide specific
+    area. Here, show or hide fine option is toggled with this script
+    ---------------------------------------------------------------------
+    """
     class Media:
         js = ('/static/admin/js/hide_attribute.js',)
 

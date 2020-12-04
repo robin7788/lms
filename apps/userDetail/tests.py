@@ -1,20 +1,20 @@
 from django.test import TestCase
+from django.forms.models import model_to_dict
+from .models import UserDetail, IssueBookDetail
 from django.contrib.auth.models import User
-from apps.userDetail.models import UserDetail, IssueBookDetail
 from apps.Book.models import Book
 from django.utils import timezone
-import datetime
 
-"""
-------------------------------------------------------------------------------------------------
-Test case for UserDetail app
-------------------------------------------------------------------------------------------------
-"""
-class UserDetailTestCase(TestCase):
+class TestCaseUserDetail(TestCase):
     TEST_USER_USERNAME = "admin"
     TEST_USER_PASSWORD = "adminadmin"
     TEST_USER_EMAIL = "admin@test.com"
 
+    """
+    ------------------------------------------------------------------------------
+    Creating user data before testing other part of userDetail
+    ------------------------------------------------------------------------------
+    """
     def setUp(self):
         self.user = User.objects.create_superuser(
             username=self.TEST_USER_USERNAME,
@@ -22,22 +22,21 @@ class UserDetailTestCase(TestCase):
             email=self.TEST_USER_EMAIL
         )
         self.client.login(username=self.TEST_USER_USERNAME, password=self.TEST_USER_PASSWORD)
-
         Book.objects.create(
             name='Book 1',
             isbn_number='ISBN123',
             published_year='2020-11-13'
         )
-        self.test_user_detail_add()
-        self.test_issue_book_add()
-
+        self.test_user_detail_create()
+        self.test_issue_book_detail_create()
     """
-    Add two users test user 1 and test user 2
+    ------------------------------------------------------------------------------
+    Test the creation of a UserDetail model
+    ------------------------------------------------------------------------------
     """
-    def test_user_detail_add(self):
+    def test_user_detail_create(self):
         try:
             user = User.objects.first()
-
             UserDetail.objects.create(
                     name="Test User 1",
                     email="testuser1@test.com",
@@ -47,7 +46,7 @@ class UserDetailTestCase(TestCase):
                     created_by=user,
                     created_at=timezone.now(),
                     updated_at=timezone.now()
-                )
+            )
 
             UserDetail.objects.create(
                     name="Test User 2",
@@ -58,27 +57,57 @@ class UserDetailTestCase(TestCase):
                     created_by=user,
                     created_at=timezone.now(),
                     updated_at=timezone.now()
-                )
+            )
         except User.DoesNotExist:
             print('User not found.')
+    """
+    ------------------------------------------------------------------------------
+    Test the creation of a UserDetail model
+    ------------------------------------------------------------------------------
+    """
+    def test_created_user_detail(self):
+        self.assertEqual(UserDetail.objects.count(), 2)
+
 
     """
-    Check whether added users are correctly identified
-    """
-    def test_check_user_exists(self):
-        try:
-            test1 = UserDetail.objects.filter(email="testuser1@test.com").first()
-            test2 = UserDetail.objects.filter(email="testuser2@test.com").first()
-            self.assertEqual(test1.name, "Test User 1")
-            self.assertEqual(test2.name, "Test User 2")
+    -------------------------------------------------------------------------------------------------------------------
+    Test that all attributes of UserDetail server are counted. 
+    It will count the primary key and all editable attributes.
+    This test should break if a new attribute is added.
+    Note: excluded columns via admin will not get counted in model_to_dict like created_by, created_at and updated_at 
 
-        except UserDetail.DoesNotExist:
-            print('User detail not found.')
+    -------------------------------------------------------------------------------------------------------------------
+    """
+    def test_user_detail_attribute_count(self):
+        user_detail = UserDetail.objects.first()
+        user_detail_dict = model_to_dict(user_detail)
+        self.assertEqual(len(user_detail_dict.keys()), 6)
+
 
     """
-    Issue same book twice to first user
+    ------------------------------------------------------------------------------------------------------------------
+    Test that all attributes of UserDetail server have content. 
+    This test will break if an attributes name is changed.
+    ------------------------------------------------------------------------------------------------------------------
     """
-    def test_issue_book_add(self):
+    def test_user_detail_attribute_content(self):
+        user_detail = UserDetail.objects.first()
+        self.assertIsNotNone(user_detail.id)
+        self.assertIsNotNone(user_detail.name)
+        self.assertIsNotNone(user_detail.email)
+        self.assertIsNotNone(user_detail.phone)
+        self.assertIsNotNone(user_detail.address)
+        self.assertIsNotNone(user_detail.status)
+        self.assertIsNotNone(user_detail.created_by)
+        self.assertIsNotNone(user_detail.created_at)
+        self.assertIsNotNone(user_detail.updated_at)
+
+    """
+    -----------------------------------------------------------------------------------------------------
+    Test the creation of a IssueBookDetail model
+    -----------------------------------------------------------------------------------------------------
+    """
+    def test_issue_book_detail_create(self):
         try:
             user = User.objects.first()
             book = Book.objects.filter(status=1).first()
@@ -116,15 +145,45 @@ class UserDetailTestCase(TestCase):
             print('Did not find any user.')
 
     """
-    Check whether issued book are correctly identified
+    -----------------------------------------------------------------------------------------------------
+    Test the creation of a IssueBookDetail model
+    -----------------------------------------------------------------------------------------------------
     """
-    def test_issue_book_exists(self):
-        try:
-            issued_book1 = IssueBookDetail.objects.filter(fine_note="Test Fine 1").first()
-            issued_book2 = IssueBookDetail.objects.filter(fine_note="Test Fine 2").first()
+    def test_created_issue_book_detail(self):
+        self.assertEqual(IssueBookDetail.objects.count(), 2)
+    """
+    ------------------------------------------------------------------------------------------------------------------
+    Test that all attributes of IssueBookDetail server are counted.
+    It will count the primary key and all editable attributes.
+    This test should break if a new attribute is added.
+    Note: excluded columns via admin will not get counted in model_to_dict like issued_by, created_at and updated_at 
+    ------------------------------------------------------------------------------------------------------------------
+    """
 
-            self.assertEqual(issued_book1.return_status, 1)
-            self.assertEqual(issued_book2.return_status, 0)
+    def test_issue_book_detail_attribute_count(self):
+        issue_book_detail = IssueBookDetail.objects.first()
+        issue_book_detail_dict = model_to_dict(issue_book_detail)
+        self.assertEqual(len(issue_book_detail_dict.keys()), 9)
 
-        except IssueBookDetail.DoesNotExist:
-            print('Issued book not found.')
+
+
+    """
+    ------------------------------------------------------------------------------------------------------------------
+    Test that all attributes of IssueBookDetail server have content. 
+    This test will break if an attributes name is changed.
+    ------------------------------------------------------------------------------------------------------------------
+    """
+    def test_issue_book_detail_attribute_content(self):
+        issue_book_detail = IssueBookDetail.objects.first()
+        self.assertIsNotNone(issue_book_detail.id)
+        self.assertIsNotNone(issue_book_detail.book)
+        self.assertIsNotNone(issue_book_detail.issue_date)
+        self.assertIsNotNone(issue_book_detail.return_date)
+        self.assertIsNotNone(issue_book_detail.return_status)
+        self.assertIsNotNone(issue_book_detail.user)
+        self.assertIsNotNone(issue_book_detail.sent_email)
+        self.assertIsNotNone(issue_book_detail.fine)
+        self.assertIsNotNone(issue_book_detail.fine_note)
+        self.assertIsNotNone(issue_book_detail.created_by)
+        self.assertIsNotNone(issue_book_detail.created_at)
+        self.assertIsNotNone(issue_book_detail.updated_at)
