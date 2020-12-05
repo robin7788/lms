@@ -67,6 +67,10 @@ from apps.userDetail.models import IssueBookDetail
 from django.contrib.auth import get_user_model
 from datetime import datetime
 
+from django.db.models import Count
+from django.db.models.functions import ExtractMonth
+from django.utils import timezone
+
 
 @assignment_tag(takes_context=True)
 def get_admin_counted_data(context):
@@ -74,6 +78,27 @@ def get_admin_counted_data(context):
     books = Book.objects.count()
     librarians = users.objects.filter(groups__name='librarian').count()
     categories = Category.objects.count()
+    today = timezone.now().year
+
+    if context.request.method == 'GET' and 'year' in context.request.GET:
+        today = context.request.GET['year']
+
+    book_not_returned = IssueBookDetail.objects.\
+        filter(issue_date__year=today).\
+        filter(return_status=0).\
+        annotate(month=ExtractMonth('issue_date')).\
+        values('month').\
+        annotate(total=Count('id')).\
+        values('month', 'total')
+
+    book_returned = IssueBookDetail.objects.\
+        filter(issue_date__year=today).\
+        filter(return_status=1).\
+        annotate(month=ExtractMonth('issue_date')).\
+        values('month').\
+        annotate(total=Count('id')).\
+        values('month', 'total')
+
     recent_issued_book = IssueBookDetail.objects.filter(return_date__lt=datetime.now()).\
         filter(return_status=False).\
         order_by('-return_date').\
@@ -82,6 +107,8 @@ def get_admin_counted_data(context):
         "books" : books,
         "librarians" : librarians,
         "categories" : categories,
+        "book_not_returned" : list(book_not_returned),
+        "book_returned" : list(book_returned),
         "recent_issued_book" : recent_issued_book,
     }
 

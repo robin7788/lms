@@ -3,6 +3,7 @@ assets/*
 images/*
 media/*
 htmlcov/
+coverage_html/
 .coverage
 .coverage.*
 coverage.xml
