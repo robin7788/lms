@@ -3,7 +3,7 @@
     <div class="card-body">
         {% block submit-row %}
             {% if show_save %}
-                <button type="submit" name="_save" class="btn btn-sm btn-primary">{% trans 'Save' %}</button>
+                <input type="submit" value="{% translate 'Save' %}" class="btn btn-sm btn-primary default" name="_save">
             {% endif %}
 
             {% if show_save_as_new %}

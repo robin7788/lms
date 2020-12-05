@@ -4,7 +4,7 @@ from django.core.validators import MinValueValidator
 from decimal import Decimal
 from apps.userDetail.current_user import get_current_user
 from apps.Book.models import Book
-import datetime
+from django.utils import timezone
 from django.utils.html import format_html
 
 
@@ -48,7 +48,7 @@ class IssueBookDetail(models.Model):
     def returning_date(self):
         return_date_val = self.return_date.strftime('%b. %d, %Y')
         if self.return_status == 0:
-            if self.return_date.date() < datetime.date.today():
+            if self.return_date.date() < timezone.now().date():
                 return_date_val = format_html('<span style="color: #cc0033; font-weight: bold;">{0}</span>', return_date_val)
         else:
             return_date_val = format_html('<span style="color: #70bf2b;">{0}</span>', return_date_val)
