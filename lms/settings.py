@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     #Added custom app
     'apps.Book',
     'apps.userDetail',
+    'apps.notice',
     'imagekit',
     'ajax_select',
     'rangefilter',

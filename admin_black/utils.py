@@ -39,6 +39,7 @@ default_apps_icon = {
     'auth': 'tim-icons icon-settings-gear-63',
     'Book': 'tim-icons icon-single-copy-04',
     'userDetail': 'tim-icons icon-single-02',
+    'notice': 'tim-icons icon-single-copy-04',
 }
 
 

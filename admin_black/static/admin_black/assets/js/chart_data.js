@@ -740,7 +740,7 @@ demo = {
 
     $.notify({
       icon: "tim-icons icon-bell-55",
-      message: "Welcome to <b>Black Dashboard</b> - a beautiful freebie for every web developer."
+      message: "Welcome to <b>UEL</b> - Library Management System."
 
     }, {
       type: type[color],

@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from apps.Book.models import Book, Category, Publication
+from apps.notice.models import Notice
 
 from django_datatables_view.base_datatable_view import BaseDatatableView
 from django.db.models import Q
 from django.utils.html import format_html
+from datetime import datetime
 
 
 
@@ -17,10 +19,15 @@ def index(request):
     books = Book.objects.filter(status=1).order_by("?")[:6]
     book_categories = Category.objects.filter(status=1)
     book_publications = Publication.objects.filter(status=1)
+    notices = Notice.objects.filter(expired_on__gte=datetime.now()).\
+        filter(status=True).\
+        order_by('-expired_on').\
+        all()[:12]
     return  render(request, "index.html", {
         'books': books,
         'bookCategories': book_categories,
-        'bookPublications': book_publications
+        'bookPublications': book_publications,
+        'notices': notices,
     })
 
 

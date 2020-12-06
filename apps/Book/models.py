@@ -99,7 +99,7 @@ class Shelf(models.Model):
 class Book(models.Model):
     name            = models.CharField(max_length=100)
     isbn_number     = models.CharField(max_length=100, blank=True, unique=True)
-    published_year  = models.DateField(auto_now_add=True)
+    published_year  = models.DateField(auto_now_add=False)
     volume          = models.CharField(max_length=100, blank=True)
     author          = models.ForeignKey(Author, null=True, on_delete=models.SET_NULL)
     publication     = models.ForeignKey(Publication, null=True, on_delete=models.SET_NULL)
