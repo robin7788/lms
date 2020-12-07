@@ -357,7 +357,7 @@ class TestCaseBook(TestCase):
     def test_attribute_count(self):
         book = Book.objects.first()
         book_dict = model_to_dict(book)
-        self.assertEqual(len(book_dict.keys()), 15)
+        self.assertEqual(len(book_dict.keys()), 16)
 
 
     """
