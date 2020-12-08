@@ -1,3 +1,9 @@
+#UEL Library Management System software developed by 5A-UEL Programmers
+----------------------------------------------------------------
+Built in python django 3.1.3 framework.
+This software is built for final project submission
+
+** Note: This software is built with use of theme of different liscence. Please read it before use  ** 
 #LMS setup requirements
 -----------------------------------------------------------
 **For image field**
