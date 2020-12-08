@@ -3,6 +3,11 @@ from django.contrib import messages
 from django.contrib.messages import constants as message_levels
 import re
 from django.http import HttpResponseRedirect
+try:
+    from urllib.parse import urlparse
+except ImportError:
+     from urlparse import urlparse
+
 
 
 class ImageField404Middleware:
