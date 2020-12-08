@@ -64,7 +64,7 @@ def get_admin_black_setting(context):
 from apps.Book.models import Book
 from apps.Book.models import Category
 from apps.userDetail.models import IssueBookDetail
-from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 from datetime import datetime
 
 from django.db.models import Count
@@ -74,10 +74,11 @@ from django.utils import timezone
 
 @assignment_tag(takes_context=True)
 def get_admin_counted_data(context):
-    users = get_user_model()
+    user = context.get('request').user
+    is_student = user.groups.filter(name='Student').count() > 0
     books = Book.objects.count()
-    librarians = users.objects.filter(groups__name='librarian').count()
-    categories = Category.objects.count()
+    librarians = User.objects.filter(groups__name='librarian').count()
+    students = User.objects.filter(groups__name='Student').count()
     today = timezone.now().year
 
     if context.request.method == 'GET' and 'year' in context.request.GET:
@@ -104,9 +105,11 @@ def get_admin_counted_data(context):
         order_by('-return_date').\
         all()[:10]
     res = {
+        "is_student" : is_student,
+        "user" : user,
         "books" : books,
         "librarians" : librarians,
-        "categories" : categories,
+        "students" : students,
         "book_not_returned" : list(book_not_returned),
         "book_returned" : list(book_returned),
         "recent_issued_book" : recent_issued_book,

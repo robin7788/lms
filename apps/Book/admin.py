@@ -4,6 +4,8 @@ from imagekit import ImageSpec
 from imagekit.processors import ResizeToFill
 from imagekit.cachefiles import ImageCacheFile
 from apps.userDetail.models import IssueBookDetail
+from django.utils.html import format_html
+
 
 # Register your models here.
 from admin_black.filters import (
@@ -54,8 +56,13 @@ class BookAdmin(admin.ModelAdmin):
     ---------------------------------------------------------------------
     """
     def get_quantity_available(self, obj):
-        return obj.quantity - IssueBookDetail.objects.filter(return_status= 0).filter(book_id=obj.id).count()
+        quantity = obj.quantity - IssueBookDetail.objects.filter(return_status= 0).filter(book_id=obj.id).count()
+        if quantity > 0:
+            return format_html(" <a href='/admin/userDetail/issuebookdetail/add?book=" + str(obj.id) + "'>Issue</a>" +
+                               " (" + str(quantity) + ")")
+        return quantity
     get_quantity_available.short_description = 'Available'
+
 
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):

@@ -4,159 +4,200 @@
 {% block breadcrumbs %}{% endblock %}
 
 {% block content %}
-    <div class="content">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card card-chart">
-                    <div class="card-header">
-                        <h2 class="card-title">{% trans "Books" %}</h2>
-                    </div>
-                    <div class="card-body text-center">
-                        <h1>{{ admin_counted_data.books }}</h1>
-                    </div>
-                </div>
-            </div>
-             <div class="col-md-4">
-                <div class="card card-chart">
-                    <div class="card-header">
-                        <h2 class="card-title">{% trans "Librarian" %}</h2>
-                    </div>
-                    <div class="card-body text-center">
-                        <h1>{{ admin_counted_data.librarians }}</h1>
+    {%if not admin_counted_data.is_student%}
+        <div class="content">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card card-chart">
+                        <div class="card-header">
+                            <h2 class="card-title">{% trans "Books" %}</h2>
+                        </div>
+                        <div class="card-body text-center">
+                            <h1>{{ admin_counted_data.books }}</h1>
+                        </div>
                     </div>
                 </div>
-            </div>
-             <div class="col-md-4">
-                <div class="card card-chart">
-                    <div class="card-header">
-                        <h2 class="card-title">{% trans "Book Categories" %}</h2>
-                    </div>
-                    <div class="card-body text-center">
-                        <h1>{{ admin_counted_data.categories }}</h1>
+                 <div class="col-md-4">
+                    <div class="card card-chart">
+                        <div class="card-header">
+                            <h2 class="card-title">{% trans "Librarian" %}</h2>
+                        </div>
+                        <div class="card-body text-center">
+                            <h1>{{ admin_counted_data.librarians }}</h1>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-12">
-                <div class="card card-chart">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-sm-6 {{ direction.panel }}">
-                                <h5 class="card-category">{% trans "Line graph" %}</h5>
-                                <h2 class="card-title">{% trans "Issued / Return book" %}</h2>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="btn-group btn-group-toggle {{ direction.float }}" data-toggle="buttons">
-                                    <label class="btn btn-sm btn-primary btn-simple active" id="issued_book_graph">
-                                        <input type="radio" name="options" checked>
-                                        <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">{% trans "Issued" %}</span>
-                                        <span class="d-block d-sm-none">
-                                          <i class="tim-icons icon-single-02"></i>
-                                        </span>
-                                    </label>
-                                    <label class="btn btn-sm btn-primary btn-simple" id="return_book_graph">
-                                        <input type="radio" class="d-none d-sm-none" name="options">
-                                        <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">{% trans "Returned" %}</span>
-                                        <span class="d-block d-sm-none">
-                                          <i class="tim-icons icon-gift-2"></i>
-                                        </span>
-                                    </label>
+                 <div class="col-md-4">
+                    <div class="card card-chart">
+                        <div class="card-header">
+                            <h2 class="card-title">{% trans "Students" %}</h2>
+                        </div>
+                        <div class="card-body text-center">
+                            <h1>{{ admin_counted_data.students }}</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="card card-chart">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-sm-6 {{ direction.panel }}">
+                                    <h5 class="card-category">{% trans "Line graph" %}</h5>
+                                    <h2 class="card-title">{% trans "Issued / Return book" %}</h2>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="btn-group btn-group-toggle {{ direction.float }}" data-toggle="buttons">
+                                        <label class="btn btn-sm btn-primary btn-simple active" id="issued_book_graph">
+                                            <input type="radio" name="options" checked>
+                                            <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">{% trans "Issued" %}</span>
+                                            <span class="d-block d-sm-none">
+                                              <i class="tim-icons icon-single-02"></i>
+                                            </span>
+                                        </label>
+                                        <label class="btn btn-sm btn-primary btn-simple" id="return_book_graph">
+                                            <input type="radio" class="d-none d-sm-none" name="options">
+                                            <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">{% trans "Returned" %}</span>
+                                            <span class="d-block d-sm-none">
+                                              <i class="tim-icons icon-gift-2"></i>
+                                            </span>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart-area">
-                            <!-- Get data in json format in order to plot in chart-->
-                            {{admin_counted_data.book_not_returned|json_script:'bookNotReturned'}}
-                            {{admin_counted_data.book_returned|json_script:'bookReturned'}}
-                            <canvas id="issueBookData" data-value=""></canvas>
+                        <div class="card-body">
+                            <div class="chart-area">
+                                <!-- Get data in json format in order to plot in chart-->
+                                {{admin_counted_data.book_not_returned|json_script:'bookNotReturned'}}
+                                {{admin_counted_data.book_returned|json_script:'bookReturned'}}
+                                <canvas id="issueBookData" data-value=""></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 {{ direction.panel }}">
-                <div class="card card-chart">
-                    <div class="card-header">
-                        <h5 class="card-category">{% trans "Total Shipments" %}</h5>
-                        <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i> 763,215</h3>
+            <div class="row">
+                <div class="col-lg-4 {{ direction.panel }}">
+                    <div class="card card-chart">
+                        <div class="card-header">
+                            <h5 class="card-category">{% trans "Total Shipments" %}</h5>
+                            <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i> 763,215</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-area">
+                                <canvas id="chartLinePurple"></canvas>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <div class="chart-area">
-                            <canvas id="chartLinePurple"></canvas>
+                </div>
+                <div class="col-lg-4 {{ direction.panel }}">
+                    <div class="card card-chart">
+                        <div class="card-header">
+                            <h5 class="card-category">{% trans "Daily Sales" %}</h5>
+                            <h3 class="card-title"><i class="tim-icons icon-delivery-fast text-info"></i> 3,500€</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-area">
+                                <canvas id="CountryChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 {{ direction.panel }}">
+                    <div class="card card-chart">
+                        <div class="card-header">
+                            <h5 class="card-category">{% trans "Completed Tasks" %}</h5>
+                            <h3 class="card-title"><i class="tim-icons icon-send text-success"></i> 12,100K</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-area">
+                                <canvas id="chartLineGreen"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 {{ direction.panel }}">
-                <div class="card card-chart">
-                    <div class="card-header">
-                        <h5 class="card-category">{% trans "Daily Sales" %}</h5>
-                        <h3 class="card-title"><i class="tim-icons icon-delivery-fast text-info"></i> 3,500€</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart-area">
-                            <canvas id="CountryChart"></canvas>
+            <div class="row">
+                <div class="col-lg-6 col-sm-6 text-center">
+                    <div class="card card-tasks {{ direction.reverse_panel }}">
+                        <div class="card-header {{ direction.panel }}">
+                            <h6 class="title d-inline">{% trans 'Recent actions' %}</h6>
+                            <p class="card-category d-inline">{% trans 'My actions' %}</p>
+                            {% load log %}
+                            {% get_admin_log 10 as admin_log for_user user %}
+                        </div>
+                        <div class="card-body">
+                            {% if admin_log %}
+                                <div class="table-full-width table-responsive">
+                                    <table class="table">
+                                        <tbody>
+                                        {% for entry in admin_log %}
+                                            <tr>
+                                                <td class="text-center">
+                                                    {% if entry.is_addition %}
+                                                        <span class="fa fa-plus-circle text-success"></span>
+                                                    {% endif %}
+                                                    {% if entry.is_change %}
+                                                        <span class="fa fa-edit text-warning"></span>
+                                                    {% endif %}
+                                                    {% if entry.is_deletion %}
+                                                        <span class="fa fa-trash text-danger"></span>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="{{ direction.panel }}">
+                                                    <p class="title">{{ entry.object_repr }}</p>
+                                                    {% if entry.content_type %}
+                                                        <p class="text-muted">
+                                                            {% filter capfirst %}{{ entry.content_type }}{% endfilter %}</p>
+                                                    {% else %}
+                                                        <p class="text-muted">{% trans 'Unknown content' %}</p>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="td-actions">
+                                                    <a href="{{ entry.get_admin_url }}" type="button" rel="tooltip" title=""
+                                                       class="btn btn-link"
+                                                       data-original-title="{{ entry.object_repr }}">
+                                                        <i class="tim-icons icon-settings"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% else %}
+                                <p>{% trans 'None available' %}</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4 {{ direction.panel }}">
-                <div class="card card-chart">
-                    <div class="card-header">
-                        <h5 class="card-category">{% trans "Completed Tasks" %}</h5>
-                        <h3 class="card-title"><i class="tim-icons icon-send text-success"></i> 12,100K</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart-area">
-                            <canvas id="chartLineGreen"></canvas>
+                <div class="col-lg-6 col-sm-6">
+                    <div class="card card-tasks {{ direction.reverse_panel }}">
+                        <div class="card-header {{ direction.panel }}">
+                            <h6 class="title d-inline">{% trans 'Issued Book Detail' %}</h6>
+                            <p class="card-category d-inline">{% trans 'Delayed in returning book' %}</p>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6 col-sm-6 text-center">
-                <div class="card card-tasks {{ direction.reverse_panel }}">
-                    <div class="card-header {{ direction.panel }}">
-                        <h6 class="title d-inline">{% trans 'Recent actions' %}</h6>
-                        <p class="card-category d-inline">{% trans 'My actions' %}</p>
-                        {% load log %}
-                        {% get_admin_log 10 as admin_log for_user user %}
-                    </div>
-                    <div class="card-body">
-                        {% if admin_log %}
-                            <div class="table-full-width table-responsive">
-                                <table class="table">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table tablesorter ">
                                     <tbody>
-                                    {% for entry in admin_log %}
+                                    {% for recent_book in admin_counted_data.recent_issued_book %}
                                         <tr>
                                             <td class="text-center">
-                                                {% if entry.is_addition %}
-                                                    <span class="fa fa-plus-circle text-success"></span>
-                                                {% endif %}
-                                                {% if entry.is_change %}
-                                                    <span class="fa fa-edit text-warning"></span>
-                                                {% endif %}
-                                                {% if entry.is_deletion %}
-                                                    <span class="fa fa-trash text-danger"></span>
-                                                {% endif %}
+                                                <img src="{% if recent_book.book.img %}{{ recent_book.book.img_thumb.url }}{% else %}{% static 'images/book.jpg' %}{% endif %}" class="img-rounded" alt="{{ recent_book.book.name }}" style="max-width: 50px;" />
                                             </td>
                                             <td class="{{ direction.panel }}">
-                                                <p class="title">{{ entry.object_repr }}</p>
-                                                {% if entry.content_type %}
+                                                <p class="title">{{ recent_book.book }}</p>
                                                     <p class="text-muted">
-                                                        {% filter capfirst %}{{ entry.content_type }}{% endfilter %}</p>
-                                                {% else %}
-                                                    <p class="text-muted">{% trans 'Unknown content' %}</p>
-                                                {% endif %}
+                                                        {% filter capfirst %}{{ recent_book.user }} | {{recent_book.user.email}}{% endfilter %}
+                                                    </p>
+
                                             </td>
                                             <td class="td-actions">
-                                                <a href="{{ entry.get_admin_url }}" type="button" rel="tooltip" title=""
+                                                <a href="#" type="button" rel="tooltip" title=""
                                                    class="btn btn-link"
-                                                   data-original-title="{{ entry.object_repr }}">
-                                                    <i class="tim-icons icon-settings"></i>
+                                                   data-original-title="{{ recent_book.book }}">
+                                                    {{ recent_book.returning_date }}
                                                 </a>
                                             </td>
                                         </tr>
@@ -164,51 +205,33 @@
                                     </tbody>
                                 </table>
                             </div>
-                        {% else %}
-                            <p>{% trans 'None available' %}</p>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-sm-6">
-                <div class="card card-tasks {{ direction.reverse_panel }}">
-                    <div class="card-header {{ direction.panel }}">
-                        <h6 class="title d-inline">{% trans 'Issued Book Detail' %}</h6>
-                        <p class="card-category d-inline">{% trans 'Delayed in returning book' %}</p>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table tablesorter ">
-                                <tbody>
-                                {% for recent_book in admin_counted_data.recent_issued_book %}
-                                    <tr>
-                                        <td class="text-center">
-                                            <img src="{% if recent_book.book.img %}{{ recent_book.book.img_thumb.url }}{% else %}{% static 'images/book.jpg' %}{% endif %}" class="img-rounded" alt="{{ recent_book.book.name }}" style="max-width: 50px;" />
-                                        </td>
-                                        <td class="{{ direction.panel }}">
-                                            <p class="title">{{ recent_book.book }}</p>
-                                                <p class="text-muted">
-                                                    {% filter capfirst %}{{ recent_book.user }} | {{recent_book.user.email}}{% endfilter %}
-                                                </p>
-
-                                        </td>
-                                        <td class="td-actions">
-                                            <a href="#" type="button" rel="tooltip" title=""
-                                               class="btn btn-link"
-                                               data-original-title="{{ recent_book.book }}">
-                                                {{ recent_book.returning_date }}
-                                            </a>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    {%else%}
+        <div class="content">
+            <div class="row">
+                 <div class="col-md-12">
+                     <h1>Welcome {{admin_counted_data.user.first_name}},</h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card card-chart">
+                        <div class="card-header">
+                            <h2 class="card-title">{% trans "Books" %}</h2>
+                        </div>
+                        <div class="card-body text-center">
+                            <h1>{{ admin_counted_data.books }}</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {%endif%}
 {% endblock %}
 
 {% block extrascript %}{% endblock %}
