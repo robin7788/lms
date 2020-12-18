@@ -16,7 +16,7 @@ class TestCaseAuthor(TestCase):
         )
     """
     -------------------------------------------------------------------------------------------------------------------
-    Test the creation of a Author model using a factory
+    Test the creation of a Author model using a manual data
     -------------------------------------------------------------------------------------------------------------------
     """
     def test_create(self):
@@ -66,7 +66,7 @@ class TestCaseCategory(TestCase):
 
     """
     -------------------------------------------------------------------------------------------------------------------
-    Test the creation of a Category model using a factory
+    Test the creation of a Category model using manual data
     -------------------------------------------------------------------------------------------------------------------
     """
     def test_create(self):
@@ -111,7 +111,7 @@ class TestCaseType(TestCase):
 
     """
     -------------------------------------------------------------------------------------------------------------------
-    Test the creation of a Type model using a factory
+    Test the creation of a Type model using manual data
     -------------------------------------------------------------------------------------------------------------------
     """
     def test_create(self):
@@ -159,7 +159,7 @@ class TestCaseGenre(TestCase):
 
     """
     -------------------------------------------------------------------------------------------------------------------
-    Test the creation of a Genre model using a factory
+    Test the creation of a Genre model using manual data
     -------------------------------------------------------------------------------------------------------------------
     """
     def test_create(self):
@@ -208,7 +208,7 @@ class TestCasePublication(TestCase):
 
     """
     -------------------------------------------------------------------------------------------------------------------
-    Test the creation of a Publication model using a factory
+    Test the creation of a Publication model using manual data
     -------------------------------------------------------------------------------------------------------------------
     """
     def test_create(self):
@@ -259,7 +259,7 @@ class TestCaseShelf(TestCase):
 
     """
     -------------------------------------------------------------------------------------------------------------------
-    Test the creation of a Shelf model using a factory
+    Test the creation of a Shelf model using manual data
     -------------------------------------------------------------------------------------------------------------------
     """
     def test_create(self):
@@ -341,7 +341,7 @@ class TestCaseBook(TestCase):
 
     """
     -------------------------------------------------------------------------------------------------------------------
-    Test the creation of a Book model using a factory
+    Test the creation of a Book model using a manual data
     -------------------------------------------------------------------------------------------------------------------
     """
     def test_create(self):
